@@ -34,7 +34,7 @@ async function saveStock(stock, like , ip){
   }
   
 }
-
+// https://stock-price-checker-proxy.freecodecamp.rocks/v1/stock/[symbol]/quote
 async function getStock(stock){
   const response = await fetch(`https://stock-price-checker-proxy.freecodecamp.rocks/v1/stock/${stock}/quote`);
   const {symbol, latestprice} = await response.json();

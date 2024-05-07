@@ -11,7 +11,7 @@ suite("Function TEST" ,function(){
             chai 
              .request(server)
              .get("/api/stock-prices/")
-             .set("content-type ", "application/json")
+             .set("content-type", "application/json")
              .query({ stock: "TSLA"})
              .end(function(err,res){
                 assert.equal(res.status,200);
@@ -71,7 +71,7 @@ suite("Function TEST" ,function(){
              .request(server)
              .get("/api/stock-prices/")
              .set("content-type ", "application/json")
-             .query({ stock: ["AMZN","T"], like : True})
+             .query({ stock: ["AMZN","T"], like : true})
              .end(function(err,res){
                 assert.equal(res.status,200);
                 assert.equal(res.body.stockData[0].stock, "AMZN");

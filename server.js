@@ -8,7 +8,9 @@ const apiRoutes         = require('./routes/api.js');
 const fccTestingRoutes  = require('./routes/fcctesting.js');
 const runner            = require('./test-runner');
 const helmet = require('helmet');
-// require('./dbconnection.js');
+const { default: mongoose } = require('mongoose');
+// require('./dbconnection');
+const db = mongoose.connect(process.env.DB);
 
 const app = express();
 
