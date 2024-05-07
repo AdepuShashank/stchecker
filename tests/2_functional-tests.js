@@ -11,7 +11,7 @@ suite("Function TEST" ,function(){
             chai 
              .request(server)
              .get("/api/stock-prices/")
-             .set("content-type", "application/json")
+            //  .set("content-type", "application/json")
              .query({ stock: "TSLA"})
              .end(function(err,res){
                 assert.equal(res.status,200);
@@ -25,12 +25,12 @@ suite("Function TEST" ,function(){
              .request(server)
              .get("/api/stock-prices/")
              .set("content-type ", "application/json")
-             .query({ stock: "GOLD"})
+             .query({ stock: "GOLD",like: true})
              .end(function(err,res){
                 assert.equal(res.status,200);
                 assert.equal(res.body.stockData.stock, "GOLD");
                 assert.equal(res.body.stockData.likes, 1);
-                assert.exists(res.body.stockData.price, "TSLA has a price");
+                assert.exists(res.body.stockData.price, "GOLD has a price");
                 done();
             });
         });
@@ -45,7 +45,7 @@ suite("Function TEST" ,function(){
                 assert.equal(res.status,200);
                 assert.equal(res.body.stockData.stock, "GOLD");
                 assert.equal(res.body.stockData.likes, 1);
-                assert.exists(res.body.stockData.price, "TSLA has a price");
+                assert.exists(res.body.stockData.price, "GOLD has a price");
                 done();
             });
         });

@@ -37,8 +37,8 @@ async function saveStock(stock, like , ip){
 // https://stock-price-checker-proxy.freecodecamp.rocks/v1/stock/[symbol]/quote
 async function getStock(stock){
   const response = await fetch(`https://stock-price-checker-proxy.freecodecamp.rocks/v1/stock/${stock}/quote`);
-  const {symbol, latestprice} = await response.json();
-  return {symbol, latestprice};
+  const {symbol, latestPrice} = await response.json();
+  return {symbol, latestPrice};
 }
 
 module.exports = function (app){
@@ -49,8 +49,8 @@ module.exports = function (app){
     if (Array.isArray(stock)){
       console.log("stocks",stock);
 
-      const{symbol, latestprice} = await getStock(stock[0]);
-      const{symbol: symbol2,latestprice: latestprice2} = await getStock(stock[1]);
+      const{symbol, latestPrice} = await getStock(stock[0]);
+      const{symbol: symbol2,latestPrice: latestPrice2} = await getStock(stock[1]);
 
       const firststock = await saveStock(stock[0],like,req.ip);
       const secondstock = await saveStock(stock[1], like , req.ip);
@@ -64,7 +64,7 @@ module.exports = function (app){
       } else {
         stockData.push({
           stock: symbol,
-          price: latestprice,
+          price: latestPrice,
           rel_likes: firststock.likes.length - secondstock.likes.length,
         });
       }
@@ -76,7 +76,7 @@ module.exports = function (app){
       } else {
         stockData.push({
           stock: symbol2,
-          price: latestprice2,
+          price: latestPrice2,
           rel_likes: secondstock.likes.length - firststock.likes.length,
         });
       }
@@ -86,10 +86,8 @@ module.exports = function (app){
       });
       return;
 
-
-
     }
-    const { symbol, latestprice} = await getStock(stock);
+    const { symbol, latestPrice} = await getStock(stock);
     if(!symbol){
       res.json({stockData:{likes:like ?1:0}});
       return;
@@ -101,7 +99,7 @@ module.exports = function (app){
       res.json({
         stockData:{
           stock: symbol,
-          price: latestprice,
+          price: latestPrice,
           likes: oneStockData.likes.length,
         },
       });
