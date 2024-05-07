@@ -26,7 +26,7 @@ async function saveStock(stock, like , ip){
     return saved;
   }
   else{
-    if (like && foundStock.likes.indexOf(ip)=== -1 ){
+    if (like && foundStock.likes.indexOf(ip) === -1 ){
       foundStock.likes.push(ip);
     }
     saved = await foundStock.save();
@@ -34,7 +34,6 @@ async function saveStock(stock, like , ip){
   }
   
 }
-// https://stock-price-checker-proxy.freecodecamp.rocks/v1/stock/[symbol]/quote
 async function getStock(stock){
   const response = await fetch(`https://stock-price-checker-proxy.freecodecamp.rocks/v1/stock/${stock}/quote`);
   const {symbol, latestPrice} = await response.json();
