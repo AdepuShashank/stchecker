@@ -2,7 +2,7 @@
 
 
 const StockModel = require("C:\\Users\\shash\\OneDrive\\Desktop\\Programming\\projects\\stockchecker\\routes\\models.js").Stock;
-// const fetch = import("node-fetch");
+const fetch = import("node-fetch");
 
 async function createStock(stock, like, ip){
   const newStock = new StockModel({
