@@ -45,6 +45,7 @@ module.exports = function (app){
 
   app.route("./api/stock-prices").get(async function (req, res){
     const { stock, like } = req.query;
+    const { symbol, latestPrice} = await getStock(stock);
     if (Array.isArray(stock)){
       console.log("stocks",stock);
 
@@ -87,7 +88,7 @@ module.exports = function (app){
       return;
 
     }
-    const { symbol, latestPrice} = await getStock(stock);
+    
     if(!symbol){
       res.json({stockData:{likes:like ?1:0}});
       return;
