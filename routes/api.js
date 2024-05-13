@@ -4,6 +4,12 @@
 const StockModel = require("C:\\Users\\shash\\OneDrive\\Desktop\\Programming\\projects\\stockchecker\\routes\\models.js").Stock;
 const fetch = import("node-fetch");
 
+async function getStock(stock){
+  const response = await fetch(`https://stock-price-checker-proxy.freecodecamp.rocks/v1/stock/${stock}/quote`);
+  const {symbol, latestPrice} = await response.json();
+  return {symbol, latestPrice};
+}
+
 async function createStock(stock, like, ip){
   const newStock = new StockModel({
     symbol : stock,
@@ -34,18 +40,14 @@ async function saveStock(stock, like , ip){
   }
   
 }
-async function getStock(stock){
-  const response = await fetch(`https://stock-price-checker-proxy.freecodecamp.rocks/v1/stock/${stock}/quote`);
-  const {symbol, latestPrice} = await response.json();
-  return {symbol, latestPrice};
-}
+
 
 module.exports = function (app){
 
 
   app.route("./api/stock-prices").get(async function (req, res){
     const { stock, like } = req.query;
-    const { symbol, latestPrice} = await getStock(stock);
+    
     if (Array.isArray(stock)){
       console.log("stocks",stock);
 
@@ -61,8 +63,11 @@ module.exports = function (app){
         stockData.push({
           rel_likes: firststock.likes.length - secondstock.likes.length,
         });
-      } else {
-        stockData.push({
+      }
+       else
+        {
+        stockData.push(
+        {
           stock: symbol,
           price: latestPrice,
           rel_likes: firststock.likes.length - secondstock.likes.length,
@@ -80,7 +85,6 @@ module.exports = function (app){
           rel_likes: secondstock.likes.length - firststock.likes.length,
         });
       }
-      // this is a test run
 
       res.json({
         stockData,
@@ -88,7 +92,7 @@ module.exports = function (app){
       return;
 
     }
-    
+    const { symbol, latestPrice} = await getStock(stock);
     if(!symbol){
       res.json({stockData:{likes:like ?1:0}});
       return;

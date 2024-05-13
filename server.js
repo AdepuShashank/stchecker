@@ -11,7 +11,7 @@ const mongodb = require('mongodb');
 
 const helmet = require('helmet');
 const { default: mongoose } = require('mongoose');
-//  require('./dbconnection');
+ require('./dbconnection');
 
 const db = mongoose.connect(process.env.DB);
 

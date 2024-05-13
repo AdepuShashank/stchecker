@@ -11,11 +11,11 @@ suite("Function TEST" ,function(){
             chai 
              .request(server)
              .get("/api/stock-prices/")
-            //  .set("content-type", "application/json")
-             .query({ stock: "TSLA"})
+             .set("content-type", "application/json")
+             .query({ stock: "goog"})
              .end(function(err,res){
                 assert.equal(res.status,200);
-                assert.equal(res.body.stockData.stock, "TSLA");
+                assert.equal(res.body.stockData.stock, "goog");
                 assert.exists(res.body.stockData.price, "TSLA has a price");
                 done();
             });
@@ -24,7 +24,7 @@ suite("Function TEST" ,function(){
             chai 
              .request(server)
              .get("/api/stock-prices/")
-             .set("content-type ", "application/json")
+             .set("content-type", "application/json")
              .query({ stock: "GOLD",like: true})
              .end(function(err,res){
                 assert.equal(res.status,200);
@@ -39,7 +39,7 @@ suite("Function TEST" ,function(){
             chai 
              .request(server)
              .get("/api/stock-prices/")
-             .set("content-type ", "application/json")
+             .set("content-type", "application/json")
              .query({ stock: "GOLD", like: true})
              .end(function(err,res){
                 assert.equal(res.status,200);
@@ -54,7 +54,7 @@ suite("Function TEST" ,function(){
             chai 
              .request(server)
              .get("/api/stock-prices/")
-             .set("content-type ", "application/json")
+             .set("content-type", "application/json")
              .query({ stock: ["AMZN","T"]})
              .end(function(err,res){
                 assert.equal(res.status,200);
@@ -70,7 +70,7 @@ suite("Function TEST" ,function(){
             chai 
              .request(server)
              .get("/api/stock-prices/")
-             .set("content-type ", "application/json")
+             .set("content-type", "application/json")
              .query({ stock: ["AMZN","T"], like : true})
              .end(function(err,res){
                 assert.equal(res.status,200);
