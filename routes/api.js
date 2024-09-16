@@ -1,14 +1,9 @@
 'use strict';
 
 
-const StockModel = require("C:\\Users\\shash\\OneDrive\\Desktop\\Programming\\projects\\stockchecker\\routes\\models.js").Stock;
+const StockModel = require("../models").Stock;
 const fetch = import("node-fetch");
 
-async function getStock(stock){
-  const response = await fetch(`https://stock-price-checker-proxy.freecodecamp.rocks/v1/stock/${stock}/quote`);
-  const {symbol, latestPrice} = await response.json();
-  return {symbol, latestPrice};
-}
 
 async function createStock(stock, like, ip){
   const newStock = new StockModel({
@@ -41,6 +36,16 @@ async function saveStock(stock, like , ip){
   
 }
 
+async function getStock(stock){
+  const response = await fetch(
+    `https://stock-price-checker-proxy.freecodecamp.rocks/v1/stock/${stock}/quote`
+  );
+  console.log("url fetched")
+  const {symbol, latestPrice} = await response.json();
+  print(response)
+  return {symbol, latestPrice};
+}
+
 
 module.exports = function (app){
 
@@ -52,6 +57,7 @@ module.exports = function (app){
       console.log("stocks",stock);
 
       const{symbol, latestPrice} = await getStock(stock[0]);
+      print(latestPrice)
       const{symbol: symbol2,latestPrice: latestPrice2} = await getStock(stock[1]);
 
       const firststock = await saveStock(stock[0],like,req.ip);
@@ -94,12 +100,12 @@ module.exports = function (app){
     }
     const { symbol, latestPrice} = await getStock(stock);
     if(!symbol){
-      res.json({stockData:{likes:like ?1:0}});
+      res.json({stockData:{likes:like ? 1 : 0 }});
       return;
     }
 
-      const oneStockData = await saveStock(symbol, like, req.ip);
-      console.log("one stock data", oneStockData);
+    const oneStockData = await saveStock(symbol, like, req.ip);
+    console.log("one stock data", oneStockData);
 
       res.json({
         stockData:{

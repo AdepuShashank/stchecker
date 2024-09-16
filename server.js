@@ -10,10 +10,10 @@ const runner            = require('./test-runner');
 const mongodb = require('mongodb');
 
 const helmet = require('helmet');
-const { default: mongoose } = require('mongoose');
+// const { default: mongoose } = require('mongoose');
  require('./dbconnection');
 
-const db = mongoose.connect(process.env.DB);
+// const db = mongoose.connect(process.env.DB);
 
 const app = express();
 
